@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as devtools show log;
 
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -73,8 +74,26 @@ class _LoginViewState extends State<LoginView> {
                 );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'invalid-credential') {
-                  devtools.log('invalid-credential');
+                  await showErrorDialog(
+                    context,
+                    'Invalid Credentials : Please enter correct Email and Password',
+                  );
+                } else if (e.code == 'channel-error') {
+                  await showErrorDialog(
+                    context,
+                    'Please enter both Email and Password',
+                  );
+                } else {
+                  await showErrorDialog(
+                    context,
+                    'Error: ${e.code}',
+                  );
                 }
+              } catch (e) {
+                await showErrorDialog(
+                  context,
+                  e.toString(),
+                );
               }
             },
             child: const Text('Login'),
