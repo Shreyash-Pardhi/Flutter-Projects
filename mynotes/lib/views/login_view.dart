@@ -1,7 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:developer' as devtools show log;
-
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/utilities/show_error_dialog.dart';
 
