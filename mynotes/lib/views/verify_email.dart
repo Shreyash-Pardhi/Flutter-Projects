@@ -33,7 +33,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               (route) => false,
             );
           },
-          child: const Text('Reset'),
+          child: const Text('Cancel'),
         )
       ]),
     );
