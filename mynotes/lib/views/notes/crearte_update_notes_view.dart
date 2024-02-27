@@ -90,7 +90,7 @@ class _CreateUpdateNotesViewState extends State<CreateUpdateNotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Note'),
+        title: const Text('Note'),
       ),
       body: FutureBuilder(
         future: createOrGetExistingNote(context),
