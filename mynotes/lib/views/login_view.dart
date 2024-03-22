@@ -6,6 +6,7 @@ import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_event.dart';
+import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/utilities/dialogs/error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -62,40 +63,35 @@ class _LoginViewState extends State<LoginView> {
               hintText: 'Enter Password',
             ),
           ),
-          TextButton(
-            onPressed: () async {
-              final email = _email.text;
-              final pass = _pass.text;
-              try {
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) async {
+              if (state is AuthStateLoggedOut) {
+                if (state.exception is UserNotFoundAuthException) {
+                  await showErrorDialog(context, 'User Not Found');
+                } else if (state.exception is InvalidCredentialAuthException) {
+                  await showErrorDialog(context,
+                      'Invalid Credentials : Please enter correct Email and Password');
+                } else if (state.exception is ChannelErrorAuthException) {
+                  await showErrorDialog(
+                      context, 'Please enter both Email and Password');
+                } else if (state.exception is GenericAuthException) {
+                  await showErrorDialog(context, 'Authentication Error');
+                }
+              }
+            },
+            child: TextButton(
+              onPressed: () async {
+                final email = _email.text;
+                final pass = _pass.text;
                 context.read<AuthBloc>().add(
                       AuthEventLogin(
                         email,
                         pass,
                       ),
                     );
-              } on UserNotFoundAuthException {
-                await showErrorDialog(
-                  context,
-                  'User not found',
-                );
-              } on InvalidCredentialAuthException {
-                await showErrorDialog(
-                  context,
-                  'Invalid Credentials : Please enter correct Email and Password',
-                );
-              } on ChannelErrorAuthException {
-                await showErrorDialog(
-                  context,
-                  'Please enter both Email and Password',
-                );
-              } on GenericAuthException {
-                await showErrorDialog(
-                  context,
-                  'Authentication Error',
-                );
-              }
-            },
-            child: const Text('Login'),
+              },
+              child: const Text('Login'),
+            ),
           ),
           TextButton(
               onPressed: () {
