@@ -31,7 +31,7 @@ migrate_working_dir/
 .pub/
 /build/
 /server/
-uri.dart
+private_details.dart
 
 # Symbolication related
 app.*.symbols

@@ -1,4 +1,5 @@
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone/features/admin/views/add_product_view.dart';
 import 'package:amazon_clone/features/auth/views/auth_view.dart';
 import 'package:amazon_clone/features/home/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BottomBar(),
+      );
+    case AddProductView.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddProductView(),
       );
     default:
       return MaterialPageRoute(

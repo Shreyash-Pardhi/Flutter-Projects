@@ -6,8 +6,6 @@ import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/constants/exception_handling.dart';
 import 'package:amazon_clone/constants/uri.dart';
 import 'package:amazon_clone/constants/utils.dart';
-
-import 'package:amazon_clone/features/home/views/home_view.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,9 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
-import 'package:amazon_clone/providers/user_provider.dart';
+import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
+import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
+import 'package:amazon_clone/features/home/widgets/product_categories.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = '/home';
@@ -16,7 +17,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -95,11 +95,18 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
-      body: Column(
-        children: const [
-          AddressBox(),
-          SizedBox(height: 10),
-        ],
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+            AddressBox(),
+            SizedBox(height: 10),
+            ProductCategories(),
+            SizedBox(height: 10),
+            CarouselImage(),
+            SizedBox(height: 10),
+            DealOfDay(),
+          ],
+        ),
       ),
     );
   }
