@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/constants/exception_handling.dart';
-import 'package:amazon_clone/constants/uri.dart';
+import 'package:amazon_clone/constants/private_details.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
@@ -30,6 +30,7 @@ class AuthService {
         address: '',
         type: '',
         token: '',
+        cart: [],
       );
 
       http.Response res = await http.post(

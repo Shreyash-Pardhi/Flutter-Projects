@@ -1,21 +1,41 @@
+import 'package:amazon_clone/common/widgets/loader.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
-import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
-import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
-import 'package:amazon_clone/features/home/widgets/product_categories.dart';
-import 'package:amazon_clone/features/search/views/search_view.dart';
+import 'package:amazon_clone/features/search/services/search_services.dart';
+import 'package:amazon_clone/features/search/widget/searched_product.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends StatefulWidget {
-  static const String routeName = '/home';
-
-  const HomeView({super.key});
+class SearchView extends StatefulWidget {
+  static const String routeName = '/search-view';
+  final String searchQuery;
+  const SearchView({
+    super.key,
+    required this.searchQuery,
+  });
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<SearchView> createState() => _SearchViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _SearchViewState extends State<SearchView> {
+  List<Product>? products;
+  final SearchServices searchServices = SearchServices();
+
+  @override
+  void initState() {
+    fetchSearchedProducts();
+    super.initState();
+  }
+
+  fetchSearchedProducts() async {
+    products = await searchServices.fetchSearchedProducts(
+      context: context,
+      searchQuery: widget.searchQuery,
+    );
+    setState(() {});
+  }
+
   void navigateToSearchView(String query) {
     Navigator.pushNamed(context, SearchView.routeName, arguments: query);
   }
@@ -37,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
               Expanded(
                 child: Container(
                   height: 42,
-                  margin: const EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 0),
                   child: Material(
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
@@ -101,19 +121,24 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            AddressBox(),
-            SizedBox(height: 10),
-            ProductCategories(),
-            SizedBox(height: 10),
-            CarouselImage(),
-            SizedBox(height: 10),
-            DealOfDay(),
-          ],
-        ),
-      ),
+      body: products == null
+          ? const Loader()
+          : Column(
+              children: [
+                const AddressBox(),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: products!.length,
+                    itemBuilder: (context, index) {
+                      return SearchedProduct(
+                        product: products![index],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
