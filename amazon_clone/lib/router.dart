@@ -1,4 +1,5 @@
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone/features/address/views/address_view.dart';
 import 'package:amazon_clone/features/admin/views/add_product_view.dart';
 import 'package:amazon_clone/features/auth/views/auth_view.dart';
 import 'package:amazon_clone/features/home/views/category_deals_view.dart';
@@ -53,6 +54,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => ProductDetailsView(
           product: product,
         ),
+      );
+    case AddressView.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddressView(),
       );
     default:
       return MaterialPageRoute(

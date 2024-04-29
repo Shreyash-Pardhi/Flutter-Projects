@@ -225,7 +225,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   CustomButton(
                     text: 'Add to Cart',
                     onTap: addToCart,
-                    color: const Color.fromRGBO(254, 216, 19, 1),
+                    color: Colors.yellow[600],
                     textColor: Colors.black,
                   ),
                 ],

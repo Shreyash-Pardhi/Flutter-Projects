@@ -32,6 +32,8 @@ migrate_working_dir/
 /build/
 /server/
 private_details.dart
+applepay.json
+gpay.json
 
 # Symbolication related
 app.*.symbols

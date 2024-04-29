@@ -1,6 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/accounts/views/account_view.dart';
 import 'package:amazon_clone/features/home/views/home_view.dart';
+import 'package:amazon_clone/features/cart/views/cart_view.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
@@ -22,9 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeView(),
     const AccountView(),
-    const Center(
-      child: Text('Cart Page'),
-    ),
+    const CartView(),
   ];
 
   void updatePage(int page) {
